@@ -28,5 +28,3 @@ for address in addresses:
     if blockcypher.get_total_num_transactions(address) > 0:
         print(f'The correct address is {address} with mnemonic: {addresses[addr]}')
         quit()
-    else:
-        continue
