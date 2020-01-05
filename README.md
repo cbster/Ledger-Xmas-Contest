@@ -9,3 +9,6 @@ Once the requirements are installed for this program, you can simply type:
 `python start.py`
   
 The program will run through!
+
+
+Inspired by [Alexander Sadavskyi's Victory](https://github.com/AlexSSD7/Ledger-Xmas-Contest-Victory)
