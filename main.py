@@ -67,7 +67,6 @@ total_possible_combos = numpy.prod(total_possible_combos)
 unfiltered_possible_combos = numpy.prod(num_possible_combos(construct_list_apc(hints, mnemonics)))
 print(f'Total possible combinations (with repetitions): {unfiltered_possible_combos}')
 print(f'Total possible combinations (without repetitions): {total_possible_combos}')
-print(datetime.datetime.now())
 possibilities = itertools.product(*all_possible_combinations)
 print("Filtering possibilities...")
 possibilities_filtered = []
@@ -75,7 +74,6 @@ filter_count = 0
 for possibility in possibilities:
     if len(possibility) == len(set(possibility)):  # sets must have unique items
         possibilities_filtered.append(possibility)
-        print(datetime.datetime.now())
     filter_count += 1
 
 valid_mnemonics = []
