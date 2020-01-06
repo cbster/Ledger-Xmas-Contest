@@ -2,3 +2,4 @@ btclib
 numpy
 bip32utils
 blockcypher
+progress
