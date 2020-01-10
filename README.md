@@ -17,4 +17,7 @@ python main.py
 The program will run through!
 
 
+The module checker.py may also be imported and used by other programs, the docstring may be referenced for details on how to pass in mnemonic phrases for checking.
+
+
 > Inspired by [AlexSSD7's Victorious Implementation](https://github.com/AlexSSD7/Ledger-Xmas-Contest-Victory)
