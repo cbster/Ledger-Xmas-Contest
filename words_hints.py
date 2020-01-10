@@ -5,6 +5,6 @@ hints = [
 ]
 
 # Mnemonics found in video
-mnemonics = ["hockey", "offer", "pact", "coffee", "leader", "design", "eyebrow", "trumpet", "word", "toddler", "tackle",
-             "jacket", "unveil", "slab", "stumble", "series", "again", "theory", "maid", "salad", "guide",
-             "accident", "aware", "short"]
+mnemonic_words = ["hockey", "offer", "pact", "coffee", "leader", "design", "eyebrow", "trumpet", "word", "toddler",
+                  "tackle", "jacket", "unveil", "slab", "stumble", "series", "again", "theory", "maid", "salad",
+                  "guide", "accident", "aware", "short"]
