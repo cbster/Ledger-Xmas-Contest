@@ -77,42 +77,42 @@ def repetition_filter():
     :return: list of unique mnemonic phrases with no repeated words
     """
     possibilities = [item for item in itertools.product(*all_possible_combinations)]  # Produces a cartesian product
-
-    def unique_filter(mnemonic_phrases):
-        """Processes each possible mnemonic phrase to ensure that each word in the phrase is unique (docstring point 3)
-        :param mnemonic_phrases: single mnemonic phrase passed in from list `possibilities` of all phrases
-        :return: list of unique mnemonic phrases with no repeated words
-        """
-
-        def timer():
-            """Run in a thread, provides a representation of progress during the filtering phase (it can take while)"""
-            latest_filter_count = 0
-            filter_start_time = time.time()
-            while is_filtering:
-                time.sleep(5)
-                elapsed_time = time.time() - filter_start_time
-                speed = (len(unique_items) - latest_filter_count) / 5
-                time_remaining = (numpy.prod(combination_count(all_possible_combinations)) - len(unique_items)) / speed
-                percentage = int((len(unique_items) / numpy.prod(combination_count(all_possible_combinations))) * 100)
-                print(f"{len(unique_items)} found, {percentage}% scanned, {int(round(speed))} found per second "
-                      f"(Elapsed: {int(round(elapsed_time))}s, Remaining: {int(round(time_remaining))}s)")
-                latest_filter_count = len(unique_items)
-
-        unique_items = []
-        status = Thread(target=timer, daemon=True)
-        is_filtering = True
-        status.start()
-        for individual_phrase in mnemonic_phrases:
-            if len(individual_phrase) == len(set(individual_phrase)):
-                unique_items.append(individual_phrase)
-        is_filtering = False
-        status.join()  # Timer function no longer required, filtering is complete
-        return unique_items
-
     print("\nChecking for unique phrases (no repeated words)...")
     with concurrent.futures.ThreadPoolExecutor() as t_pool:  # Executes the filtering process across multiple threads
         result = t_pool.submit(unique_filter, possibilities)
         return result.result()
+
+
+def unique_filter(mnemonic_phrases):
+    """Processes each possible mnemonic phrase to ensure that each word in the phrase is unique (docstring point 3)
+    :param mnemonic_phrases: single mnemonic phrase passed in from list `possibilities` of all phrases
+    :return: list of unique mnemonic phrases with no repeated words
+    """
+
+    def timer():
+        """Run in a thread, provides a representation of progress during the filtering phase (it can take while)"""
+        latest_filter_count = 0
+        filter_start_time = time.time()
+        while is_filtering:
+            time.sleep(5)
+            elapsed_time = time.time() - filter_start_time
+            speed = (len(unique_items) - latest_filter_count) / 5
+            time_remaining = (numpy.prod(combination_count(all_possible_combinations)) - len(unique_items)) / speed
+            percentage = int((len(unique_items) / numpy.prod(combination_count(all_possible_combinations))) * 100)
+            print(f"{len(unique_items)} found, {percentage}% scanned, {int(round(speed))} found per second "
+                  f"(Elapsed: {int(round(elapsed_time))}s, Remaining: {int(round(time_remaining))}s)")
+            latest_filter_count = len(unique_items)
+
+    unique_items = []
+    status = Thread(target=timer, daemon=True)
+    is_filtering = True
+    status.start()
+    for individual_phrase in mnemonic_phrases:
+        if len(individual_phrase) == len(set(individual_phrase)):
+            unique_items.append(individual_phrase)
+    is_filtering = False
+    status.join()  # Timer function no longer required, filtering is complete
+    return unique_items
 
 
 if __name__ == "__main__":
