@@ -68,6 +68,7 @@ def estimator(apc):
     """
     print(f'Total possible combinations (with repetitions): {numpy.prod([len(combos) for combos in apc])}')
     print(f'Total possible combinations (without repetitions): {numpy.prod(combination_count(apc))}')
+    return [numpy.prod([len(combos) for combos in apc]), numpy.prod(combination_count(apc))]
 
 
 def repetition_filter():
@@ -97,8 +98,8 @@ def unique_filter(mnemonic_phrases):
             time.sleep(5)
             elapsed_time = time.time() - filter_start_time
             speed = (len(unique_items) - latest_filter_count) / 5
-            time_remaining = (numpy.prod(combination_count(all_possible_combinations)) - len(unique_items)) / speed
-            percentage = int((len(unique_items) / numpy.prod(combination_count(all_possible_combinations))) * 100)
+            time_remaining = (combo_count[1] - len(unique_items)) / speed
+            percentage = int((len(unique_items) / combo_count[1]) * 100)
             print(f"{len(unique_items)} found, {percentage}% scanned, {int(round(speed))} found per second "
                   f"(Elapsed: {int(round(elapsed_time))}s, Remaining: {int(round(time_remaining))}s)")
             latest_filter_count = len(unique_items)
@@ -118,7 +119,7 @@ def unique_filter(mnemonic_phrases):
 if __name__ == "__main__":
     mnemonic_valid_check(mnemonic_words)
     all_possible_combinations = construct_list_apc(hints, mnemonic_words)
-    estimator(all_possible_combinations)
+    combo_count = estimator(all_possible_combinations)
 
     # From here, the search for the mnemonic phrases themselves begins
     possibilities_filtered = repetition_filter()
