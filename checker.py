@@ -1,6 +1,6 @@
 """
 Checks mnemonic phrases found by main.py for valid checksums, produces a list of these phrases.
-Phrases are then converted to Base58(P2SH) i.e Segwit addresses.
+Phrases are then converted to Base58(P2SH) i.e. Segwit addresses.
 The Blockcypher library is used to check if there have been past transactions on the accounts.
 If you wish to use this module as a standalone to verify the validity of mnemonic phrases,
 they must be passed in so: [[phrase],[phrase],...] where 'phrase' is ['word1','word2',...]
